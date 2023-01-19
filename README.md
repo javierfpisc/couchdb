@@ -1,18 +1,15 @@
 <h1 align="center">
-    Bitwarden ISC
+    CouchDB
 </h1>
 
 # Instalación
-1. Clonar repositorio:
-    ```bash
-    git clone https://gitlab.iessanclemente.net/cecasacle/bitwarden.git
-    ```
-2. Lanzar con docker-compose:
+1. Despliegue:
     ```bash
     docker-compose up -d
     ```
+2. Acceso a través del puerto 5984:
+    
+    http://localhost:5984/_utils
 
-# Notas
-
-Los datos de Bitwarden se almacenan en el directorio ./bwdata (no sincronizado en el repositorio)
+    La contraseña de admin se define en el archivo docker-compose.yml
 
