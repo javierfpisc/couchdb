@@ -3,14 +3,18 @@ services:
  couchdb:
   image: "couchdb"  
   hostname: "couchdb"
-  restart: unless-stopped
-  #env_file:
-  # - "build/couch.env"
   environment:
    - COUCHDB_USER=admin
    - COUCHDB_PASSWORD=abc123.
   ports:
    - "5984:5984"
   volumes:
-        - ./dbdata:/opt/couchdb/data
+   - ./dbdata:/opt/couchdb/data
+ flask:
+  build: ./flask
+  hostname: "flask"
+  ports:
+   - "5000:5000"
+  volumes:
+   - ./flask:/usr/src/app/
 
