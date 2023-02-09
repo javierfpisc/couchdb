@@ -3,6 +3,7 @@ services:
  nginx:
   image: "nginx:latest"
   hostname: "nginx"
+  restart: "unless-stopped"
   ports:
    - "8080:80"
    - "443:443"
@@ -12,6 +13,7 @@ services:
  couchdb:
   image: "couchdb"  
   hostname: "couchdb"
+  restart: "unless-stopped"
   environment:
    - COUCHDB_USER=admin
    - COUCHDB_PASSWORD=abc123.
@@ -22,6 +24,7 @@ services:
  flask-gunicorn:
   build: ./flask
   hostname: "flask"
+  restart: "unless-stopped"
   ports:
    - "8000:8000"
   volumes:
