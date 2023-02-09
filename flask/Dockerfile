@@ -1,10 +1,13 @@
-FROM python:3.7
+FROM python:3.10
 
-WORKDIR /usr/src/app
+#Copiamos el entrypoint.sh al container
+COPY entrypoint.sh /usr/bin/entrypoint.sh
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+#Damos permiso al entrypoint
+RUN chmod +x /usr/bin/entrypoint.sh
 
-COPY . .
+#Instalación de dependencias
+RUN apt update && apt install -y libgl1-mesa-glx
 
-CMD [ "python", "./app.py" ]
+#Comando para arrancar
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]

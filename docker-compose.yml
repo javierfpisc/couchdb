@@ -9,6 +9,7 @@ services:
   volumes:
    - ./nginx/html:/var/www/html
    - ./nginx/ssl:/etc/nginx/ssl
+   - ./website/miniblog:/etc/nginx/sites-available/miniblog:ro
  couchdb:
   image: "couchdb"  
   hostname: "couchdb"
@@ -18,12 +19,12 @@ services:
   ports:
    - "5984:5984"
   volumes:
-   - ./dbdata:/opt/couchdb/data
+   - ./couchdata:/opt/couchdb/data
  flask-gunicorn:
   build: ./flask
   hostname: "flask"
   ports:
-   - "5000:5000"
+   - "8000:8000"
   volumes:
-   - ./flask:/usr/src/app/
+   - ./website:/usr/src/website:ro
 
