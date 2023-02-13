@@ -28,5 +28,6 @@ services:
   ports:
    - "8000:8000"
   volumes:
-   - ./website:/usr/src/website:ro
+   - ./website:/opt/web2print/website:ro
+   - ./website/flask.log:/opt/web2print/flask.log
 
