@@ -20,7 +20,7 @@ services:
   ports:
    - "5984:5984"
   volumes:
-   - ./couchdata:/opt/couchdb/data
+   - couch-data:/opt/couchdb/data
  flask-gunicorn:
   build: ./flask
   hostname: "flask"
@@ -29,4 +29,17 @@ services:
    - "8000:8000"
   volumes:
    - ./website:/opt/web2print/website
+ mariadb:
+  build: ./mariadb
+  hostname: "mariadb"
+  restart: "unless-stopped"
+  environment:
+  - DB=web2print
+  - DBUSER=copias
+  - DBPASS=12345
+  volumes:
+   - mariadb-data:/var/lib/mysql
+volumes:
+ mariadb-data:
+ couch-data:
 
