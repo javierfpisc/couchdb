@@ -10,17 +10,17 @@ services:
   volumes:
    - ./nginx/ssl:/etc/nginx/ssl
    - ./nginx/miniblog:/etc/nginx/conf.d/default.conf:ro
- couchdb:
-  image: "couchdb"  
-  hostname: "couchdb"
-  restart: "unless-stopped"
-  environment:
-   - COUCHDB_USER=admin
-   - COUCHDB_PASSWORD=abc123.
-  ports:
-   - "5984:5984"
-  volumes:
-   - couch-data:/opt/couchdb/data
+# couchdb:
+#  image: "couchdb"  
+#  hostname: "couchdb"
+#  restart: "unless-stopped"
+#  environment:
+#   - COUCHDB_USER=admin
+#   - COUCHDB_PASSWORD=abc123.
+#  ports:
+#   - "5984:5984"
+#  volumes:
+#   - couch-data:/opt/couchdb/data
  flask-gunicorn:
   build: ./flask
   hostname: "flask"
@@ -29,6 +29,7 @@ services:
    - "8000:8000"
   volumes:
    - ./website:/opt/web2print/website
+   - ./uploads:/opt/web2print/uploads
  mariadb:
   build: ./mariadb
   hostname: "mariadb"
@@ -37,9 +38,27 @@ services:
   - DB=web2print
   - DBUSER=copias
   - DBPASS=12345
+  - WPDB=wpdb
+  - WPUSER=wpuser
+  - WPPASS=12345
   volumes:
    - mariadb-data:/var/lib/mysql
+ wordpress:  
+  build:
+    context: wordpress
+    args:
+     ENVPATH: wordpress.build
+  hostname: wordpress
+  restart: "unless-stopped"
+  depends_on:
+  - mariadb
+  volumes:
+  - wp-data:/var/www/html/wordpress/data
+  ports:
+  - 8081:80
+  - 8043:443
 volumes:
  mariadb-data:
  couch-data:
+ wp-data:
 
