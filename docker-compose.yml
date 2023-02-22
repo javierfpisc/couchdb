@@ -25,8 +25,8 @@ services:
   build: ./flask
   hostname: "flask"
   restart: "unless-stopped"
-  ports:
-   - "8000:8000"
+#  ports:
+#   - "8000:8000"
   volumes:
    - ./website:/opt/web2print/website
    - ./uploads:/opt/web2print/uploads
@@ -54,9 +54,9 @@ services:
   - mariadb
   volumes:
   - wp-data:/var/www/html/wordpress/data
-  ports:
-  - 8081:80
-  - 8043:443
+#  ports:
+#  - 8081:80
+#  - 8043:443
 volumes:
  mariadb-data:
  couch-data:
