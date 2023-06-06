@@ -25,11 +25,33 @@ services:
   build: ./flask
   hostname: "flask"
   restart: "unless-stopped"
-#  ports:
-#   - "8000:8000"
   volumes:
    - ./website:/opt/web2print/website
    - ./uploads:/opt/web2print/uploads
+ #INSTANCIAS FLASK
+ web2print:
+  build: ./flask
+  hostname: "web2print"
+  restart: "unless-stopped"
+  depends_on:
+  - mariadb
+  volumes:
+   - ./website_publico:/opt/web2print/website
+   - ./uploads:/opt/web2print/uploads 
+ controlw2p:
+  build: ./flask
+  hostname: "controlw2p"
+  restart: "unless-stopped"
+  depends_on:
+  - mariadb
+  volumes:
+   - ./website_control:/opt/web2print/website
+   - ./uploads:/opt/web2print/uploads
+   - ./processes:/opt/web2print/processes
+   - ./queue:/opt/web2print/queue 
+   - ./reports:/opt/web2print/reports
+   - ./temp:/opt/web2print/temp
+ #MARIADB
  mariadb:
   build: ./mariadb
   hostname: "mariadb"
@@ -43,6 +65,7 @@ services:
   - WPPASS=12345
   volumes:
    - mariadb-data:/var/lib/mysql
+ #WORDPRESS
  wordpress:  
   build:
     context: wordpress
@@ -54,9 +77,17 @@ services:
   - mariadb
   volumes:
   - wp-data:/var/www/html/wordpress/data
-#  ports:
-#  - 8081:80
-#  - 8043:443
+ copiasdeautor:  
+  build:
+    context: wordpress
+    args:
+     ENVPATH: wordpress.build
+  hostname: copiasdeautor
+  restart: "unless-stopped"
+  depends_on:
+  - mariadb
+  volumes:
+  - wp-data:/var/www/html/wordpress/data
 volumes:
  mariadb-data:
  couch-data:
