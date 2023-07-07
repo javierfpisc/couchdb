@@ -21,13 +21,13 @@ services:
 #   - "5984:5984"
 #  volumes:
 #   - couch-data:/opt/couchdb/data
- flask-gunicorn:
-  build: ./flask
-  hostname: "flask"
-  restart: "unless-stopped"
-  volumes:
-   - ./website:/opt/web2print/website
-   - ./uploads:/opt/web2print/uploads
+# flask-gunicorn:
+#  build: ./flask
+#  hostname: "flask"
+#  restart: "unless-stopped"
+#  volumes:
+#   - ./website:/opt/web2print/website
+#   - ./uploads:/opt/web2print/uploads
  #INSTANCIAS FLASK
  web2print:
   build: ./flask
