@@ -6,5 +6,5 @@ PACKS="wget curl net-tools iproute2 apache2 php php-mysql php-curl php-gd php-mb
 WPVERSION=latest.tar.gz
 
 #Comandos a ejecutar al crear la imagen separados por ","
-COMMANDS="cd /tmp && wget https://wordpress.org/$WPVERSION && tar -xzf $WPVERSION && mv wordpress /var/www/html,chown -R www-data:www-data /var/www/html/wordpress"
+COMMANDS="cd /tmp && wget https://wordpress.org/$WPVERSION && tar -xzf $WPVERSION && mv wordpress /var/www/html,chown -R www-data:www-data /var/www/html/wordpress, rm -f /etc/apache2/sites-enabled/*, ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled"
 

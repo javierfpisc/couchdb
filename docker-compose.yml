@@ -88,6 +88,8 @@ services:
   - mariadb
   volumes:
   - wp-data:/var/www/html/wordpress/data
+  - ./wordpress/000-default.conf:/etc/apache2/000-default.conf
+  - ./wordpress/default-ssl.conf:/etc/apache2/default-ssl.conf
 volumes:
  mariadb-data:
  couch-data:
