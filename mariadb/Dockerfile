@@ -7,7 +7,7 @@ COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
 
 #Instalación de dependencias
-RUN apt update && apt install -y vim mariadb-server mariadb-client
+RUN apt update && apt install -y vim iputils-ping mariadb-server mariadb-client
 
 #Copiamos el dump de la base de datos
 COPY webtoprint.sql /root/webtoprint.sql
