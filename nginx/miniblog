@@ -1,12 +1,44 @@
 server {
     listen 80;
     server_name web2print.jpereira.net;
+    client_max_body_size 200m;
+    proxy_request_buffering off;
+    
+    proxy_buffering off;
+    proxy_buffer_size 16k;
+    proxy_busy_buffers_size 24k;
+    proxy_buffers 64 4k;
+    
+    proxy_max_temp_file_size 10000m;
+    proxy_connect_timeout   10000m;
+    proxy_send_timeout      10000m;
+    proxy_read_timeout      10000m;
+    send_timeout            10000m;
+    client_header_timeout   10000m;
+    client_body_timeout     10000m;
     
     #location /static {
     #    alias /opt/web2print/website/static;
     #}
-   
+    
+    location /upload_image {
+        client_max_body_size 200M;
+        proxy_request_buffering off;
+        proxy_buffering off;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Cookie $http_cookie;
+        proxy_pass http://web2print:8000/upload_image;
+    
+    }
+
     location / {
+        client_max_body_size 200M;
+        proxy_request_buffering off;
+        proxy_buffering off;
+        
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -14,6 +46,12 @@ server {
         proxy_set_header Cookie $http_cookie;
         #proxy_pass http://flask-gunicorn:8000;
         proxy_pass http://web2print:8000;
+        
+        proxy_connect_timeout              10000s;
+        proxy_send_timeout                 10000s;
+        proxy_read_timeout                 10000s;
+        
+
     }
 }
 
@@ -37,7 +75,7 @@ server {
 
 server {
     listen 80;
-    server_name copiasdeautor.jpereira.net;
+    server_name copiasdeautor.jpereira.net copiasdeautor;
     
     #location /static {
     #    alias /opt/web2print/website/static;
