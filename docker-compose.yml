@@ -38,7 +38,7 @@ services:
   depends_on:
   - mariadb
   volumes:
-   - ./website_publico/website:/opt/web2print/website
+   - ./website_publico:/opt/web2print/website
    - ./uploads:/opt/web2print/uploads 
  controlw2p:
   build: ./flask
@@ -49,7 +49,7 @@ services:
   depends_on:
   - mariadb
   volumes:
-   - ./website_control/website:/opt/web2print/website
+   - ./website_control:/opt/web2print/website
    - ./uploads:/opt/web2print/uploads
    - ./processes:/opt/web2print/processes
    - ./queue:/opt/web2print/queue 

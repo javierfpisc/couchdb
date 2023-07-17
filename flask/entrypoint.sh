@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Nos movemos al directorio del proyecto
-cd /opt/web2print/website
+cd /home/web2print/gitrepos/flask_couchdb/website_control
 
 #Instala si no lo están los requirements
 pip install --no-cache-dir -r requirements.txt
